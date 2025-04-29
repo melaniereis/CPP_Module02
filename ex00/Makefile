@@ -6,7 +6,7 @@
 #    By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/24 15:02:25 by meferraz          #+#    #+#              #
-#    Updated: 2025/04/26 16:19:37 by meferraz         ###   ########.fr        #
+#    Updated: 2025/04/29 16:04:37 by meferraz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,43 +65,43 @@ REBUILD = 🔄
 all: $(NAME)
 
 $(NAME): $(OBJS) | $(BUILD_PATH)
-	@echo -e "$(BLUE)$(ROCKET) Linking objects to create $(NAME)... $(RESET)"
+	@echo "$(BLUE)$(ROCKET) Linking objects to create $(NAME)... $(RESET)"
 	@$(CXX) $(CXXFLAGS) $(OBJS) -o $@
-	@echo -e "$(GREEN)$(DONE) Build complete! $(RESET)"
+	@echo "$(GREEN)$(DONE) Build complete! $(RESET)"
 
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.cpp $(HEADERS) | $(BUILD_PATH)
 	@$(MKDIR) $(@D)
-	@echo -e "$(YELLOW)$(LAPTOP) Compiling $<... $(RESET)"
+	@echo "$(YELLOW)$(LAPTOP) Compiling $<... $(RESET)"
 	@$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
 $(BUILD_PATH):
 	@$(MKDIR) $(BUILD_PATH)
 
 val: $(NAME)
-	@echo -e "$(BLUE)$(BUG) Running valgrind on $(NAME)... $(RESET)"
+	@echo "$(BLUE)$(BUG) Running valgrind on $(NAME)... $(RESET)"
 	@valgrind $(V_ARGS) ./$(NAME)
 
 vgdb: $(NAME)
-	@echo -e "$(BLUE)$(BUG) Running valgrind with debug on $(NAME)... $(RESET)"
+	@echo "$(BLUE)$(BUG) Running valgrind with debug on $(NAME)... $(RESET)"
 	@valgrind --vgdb-error=0 $(V_ARGS) ./$(NAME)
 
 gdb: all
-	@echo -e "$(BLUE)$(BUG) Starting GDB for $(NAME)... $(RESET)"
+	@echo "$(BLUE)$(BUG) Starting GDB for $(NAME)... $(RESET)"
 	@gdb -tui -q ./$(NAME) -x .gdbinit
 
 test: all
-	@echo -e "$(BLUE)$(TARGET) Testing $(NAME)... $(RESET)"
+	@echo "$(BLUE)$(TARGET) Testing $(NAME)... $(RESET)"
 	@./$(NAME)
 
 clean:
-	@echo -e "$(RED)$(BROOM) Cleaning object files... $(RESET)"
+	@echo "$(RED)$(BROOM) Cleaning object files... $(RESET)"
 	@$(RM) $(OBJS) $(BUILD_PATH)
 
 fclean: clean
-	@echo -e "$(RED)$(BROOM) Removing executable and build directory... $(RESET)"
+	@echo "$(RED)$(BROOM) Removing executable and build directory... $(RESET)"
 	@$(RM) $(NAME)
 
 re: fclean all
-	@echo -e "$(BLUE)$(REBUILD) Rebuilding $(NAME)... $(RESET)"
+	@echo "$(BLUE)$(REBUILD) Rebuilding $(NAME)... $(RESET)"
 
 .PHONY: all clean fclean re val vgdb gdb test
