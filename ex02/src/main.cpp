@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:52:32 by meferraz          #+#    #+#             */
-/*   Updated: 2025/04/29 17:47:41 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:40:36 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void printHeader()
  * to visually distinguish between different sections of output. It prints
  * a newline before and after the separator for additional spacing.
  */
-
 static void printSeparator()
 {
 	std::cout << std::endl;
@@ -57,22 +56,19 @@ static void runSubjectTests()
 	printSeparator();
 
 	Fixed a;
-	Fixed const b( 10 );
-	Fixed const c( 42.42f );
-	Fixed const d( b );
+	Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
 
-	a = Fixed( 1234.4321f );
+	std::cout << a << std::endl;
+	std::cout << ++a << std::endl;
+	std::cout << a << std::endl;
+	std::cout << a++ << std::endl;
+	std::cout << a << std::endl;
 
-	std::cout << "a is " << a << std::endl;
-	std::cout << "b is " << b << std::endl;
-	std::cout << "c is " << c << std::endl;
-	std::cout << "d is " << d << std::endl;
+	std::cout << b << std::endl;
 
-	std::cout << "a is " << a.toInt() << " as integer" << std::endl;
-	std::cout << "b is " << b.toInt() << " as integer" << std::endl;
-	std::cout << "c is " << c.toInt() << " as integer" << std::endl;
-	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
+	std::cout << Fixed::max( a, b ) << std::endl;
 }
+
 
 /**
  * Runs additional tests for the Fixed class.
@@ -86,32 +82,64 @@ static void runSubjectTests()
  * copy assignment operator and takes `c` as its argument. The raw bits and
  * values of each object are then printed to the console, as well as each object
  * converted to an integer and a float using the `toInt` and `toFloat` methods.
+ * This function also tests the arithmetic, comparison, min/max, and
+ * increment/decrement operators.
+ *
+ * The raw bits and values of each object are then printed to the console, as
+ * well as each object converted to an integer and a float using the `toInt`
+ * and `toFloat` methods. The arithmetic, comparison, min/max, and
+ * increment/decrement operators are also tested.
  */
 static void runAditionalTests()
 {
 	std::cout << YELHB << "          Additional Tests           " << RESET << std::endl;
 	printSeparator();
 
-	Fixed a;
-	Fixed const b(0);
-	Fixed const c(100);
-	Fixed const d(-42);
-	Fixed const e(3.14159f);
-	Fixed const f(-123.456f);
-	Fixed const g(b);
-	Fixed h;
-	h = c;
+	Fixed a(1.5f), b(0), c(100), d(-42), e(3.14159f), f(-123.456f), g(b), h(c);
 
-	a = Fixed(1.5f);
+	std::cout << "\n❓ Object States:" << std::endl;
+	std::cout << "a: " << a << " (as int: " << a.toInt() << ", as float: " << a.toFloat() << ")" << std::endl;
+	std::cout << "b: " << b << " (as int: " << b.toInt() << ", as float: " << b.toFloat() << ")" << std::endl;
+	std::cout << "c: " << c << " (as int: " << c.toInt() << ", as float: " << c.toFloat() << ")" << std::endl;
+	std::cout << "d: " << d << " (as int: " << d.toInt() << ", as float: " << d.toFloat() << ")" << std::endl;
+	std::cout << "e: " << e << " (as int: " << e.toInt() << ", as float: " << e.toFloat() << ")" << std::endl;
+	std::cout << "f: " << f << " (as int: " << f.toInt() << ", as float: " << f.toFloat() << ")" << std::endl;
+	std::cout << "g (copy of b): " << g << std::endl;
+	std::cout << "h (assigned from c): " << h << std::endl;
 
-	std::cout << "a is " << a << " | as int: " << a.toInt() << " | as float: " << a.toFloat() << std::endl;
-	std::cout << "b is " << b << " | as int: " << b.toInt() << " | as float: " << b.toFloat() << std::endl;
-	std::cout << "c is " << c << " | as int: " << c.toInt() << " | as float: " << c.toFloat() << std::endl;
-	std::cout << "d is " << d << " | as int: " << d.toInt() << " | as float: " << d.toFloat() << std::endl;
-	std::cout << "e is " << e << " | as int: " << e.toInt() << " | as float: " << e.toFloat() << std::endl;
-	std::cout << "f is " << f << " | as int: " << f.toInt() << " | as float: " << f.toFloat() << std::endl;
-	std::cout << "g (copy of b) is " << g << " | as int: " << g.toInt() << " | as float: " << g.toFloat() << std::endl;
-	std::cout << "h (assigned from c) is " << h << " | as int: " << h.toInt() << " | as float: " << h.toFloat() << std::endl;
+	printSeparator();
+
+	std::cout << "\n❓ Arithmetic Operations:" << std::endl;
+	std::cout << "a + e = " << (a + e) << std::endl;
+	std::cout << "c - d = " << (c - d) << std::endl;
+	std::cout << "e * a = " << (e * a) << std::endl;
+	std::cout << "c / a = " << (c / a) << std::endl;
+
+	printSeparator();
+
+	std::cout << "\n❓ Comparison Operations:" << std::endl;
+	std::cout << "a > b: " << (a > b) << std::endl;
+	std::cout << "a < b: " << (a < b) << std::endl;
+	std::cout << "a == g: " << (a == g) << std::endl;
+	std::cout << "h >= c: " << (h >= c) << std::endl;
+	std::cout << "f != d: " << (f != d) << std::endl;
+
+	printSeparator();
+
+	std::cout << "\n❓ Min/Max Functions:" << std::endl;
+	std::cout << "min(a, e): " << Fixed::min(a, e) << std::endl;
+	std::cout << "max(c, d): " << Fixed::max(c, d) << std::endl;
+
+	printSeparator();
+
+	std::cout << "\n❓ Increment/Decrement:" << std::endl;
+	std::cout << "a: " << a << std::endl;
+	std::cout << "++a: " << ++a << std::endl;
+	std::cout << "a++: " << a++ << std::endl;
+	std::cout << "a after a++: " << a << std::endl;
+	std::cout << "--a: " << --a << std::endl;
+	std::cout << "a--: " << a-- << std::endl;
+	std::cout << "a after a--: " << a << std::endl;
 }
 
 

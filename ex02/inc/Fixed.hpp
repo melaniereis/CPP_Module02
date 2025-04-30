@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:16:59 by meferraz          #+#    #+#             */
-/*   Updated: 2025/04/29 22:14:49 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:32:01 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ public:
 	~Fixed(void);
 
 	Fixed &operator=(const Fixed &copy);
-	bool operator>(const Fixed &fixedPointObj);
-	bool operator<(const Fixed &fixedPointObj);
-	bool operator>=(const Fixed &fixedPointObj);
-	bool operator<=(const Fixed &fixedPointObj);
-	bool operator==(const Fixed &fixedPointObj);
-	bool operator!=(const Fixed &fixedPointObj);
+	bool operator>(const Fixed &rhs) const;
+	bool operator<(const Fixed &rhs) const;
+	bool operator>=(const Fixed &rhs) const;
+	bool operator<=(const Fixed &rhs) const;
+	bool operator==(const Fixed &rhs) const;
+	bool operator!=(const Fixed &rhs) const;
 
-	Fixed &operator+(const Fixed &fixedPointObj);
-	Fixed &operator-(const Fixed &fixedPointObj);
-	Fixed &operator*(const Fixed &fixedPointObj);
-	Fixed &operator/(const Fixed &fixedPointObj);
+	Fixed operator+(const Fixed &rhs) const;
+	Fixed operator-(const Fixed &rhs) const;
+	Fixed operator*(const Fixed &rhs) const;
+	Fixed operator/(const Fixed &rhs) const;
 
-	Fixed &operator++(void);
-	Fixed &operator--(void);
+	Fixed operator++(void);
+	Fixed operator--(void);
 	Fixed operator++(int);
 	Fixed operator--(int);
 
@@ -51,10 +51,10 @@ public:
 	int getRawBits(void) const;
 	void setRawBits(int const raw);
 
-	static &min(Fixed &a, Fixed &b);
-	static &min(const Fixed &a, const Fixed &b);
-	static &max(Fixed &a, Fixed &b);
-	static &max(const Fixed &a, const Fixed &b);
+	static const Fixed &min(Fixed &a, Fixed &b);
+	static const Fixed &min(const Fixed &a, const Fixed &b);
+	static const Fixed &max(Fixed &a, Fixed &b);
+	static const Fixed &max(const Fixed &a, const Fixed &b);
 
 private:
 	int _value;

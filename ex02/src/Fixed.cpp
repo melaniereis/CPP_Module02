@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:16:55 by meferraz          #+#    #+#             */
-/*   Updated: 2025/04/29 22:14:47 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:59:27 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,36 +107,263 @@ Fixed &Fixed::operator=(const Fixed &copy)
 	return (*this);
 }
 
-bool Fixed::operator>(const Fixed &fixedPointObj)
+/**
+ * Compares two Fixed objects for greater than.
+ *
+ * This function returns true if the left-hand side object has a greater raw value
+ * than the right-hand side object, and false otherwise.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   True if left-hand side object has a greater raw value than right-hand side
+ *   object, and false otherwise.
+ */
+bool Fixed::operator>(const Fixed &rhs) const
 {
-	return (this->getRawBits() > fixedPointObj.getRawBits());
+	return (this->getRawBits() > rhs.getRawBits());
 }
 
-bool Fixed::operator<(const Fixed &fixedPointObj)
+/**
+ * Compares two Fixed objects for less than.
+ *
+ * This function returns true if the left-hand side object has a lesser raw value
+ * than the right-hand side object, and false otherwise.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   True if left-hand side object has a lesser raw value than right-hand side
+ *   object, and false otherwise.
+ */
+bool Fixed::operator<(const Fixed &rhs) const
 {
-	return (this->getRawBits() < fixedPointObj.getRawBits());
+	return (this->getRawBits() < rhs.getRawBits());
 }
 
-bool Fixed::operator>=(const Fixed &fixedPointObj)
+/**
+ * Compares two Fixed objects for greater than or equal to.
+ *
+ * This function returns true if the left-hand side object has a raw value
+ * greater than or equal to the right-hand side object, and false otherwise.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   True if left-hand side object has a raw value greater than or equal to
+ *   right-hand side object, and false otherwise.
+ */
+bool Fixed::operator>=(const Fixed &rhs) const
 {
-	return (this->getRawBits() >= fixedPointObj.getRawBits());
+	return (this->getRawBits() >= rhs.getRawBits());
 }
 
-bool Fixed::operator<=(const Fixed &fixedPointObj)
+/**
+ * Compares two Fixed objects for less than or equal to.
+ *
+ * This function returns true if the left-hand side object has a raw value
+ * less than or equal to the right-hand side object, and false otherwise.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   True if left-hand side object has a raw value less than or equal to
+ *   right-hand side object, and false otherwise.
+ */
+bool Fixed::operator<=(const Fixed &rhs) const
 {
-	return (this->getRawBits() <= fixedPointObj.getRawBits());
+	return (this->getRawBits() <= rhs.getRawBits());
 }
 
-bool Fixed::operator==(const Fixed &fixedPointObj)
+/**
+ * Compares two Fixed objects for equality.
+ *
+ * This function returns true if the left-hand side object has the same raw value
+ * as the right-hand side object, and false otherwise.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   True if left-hand side object has the same raw value as right-hand side
+ *   object, and false otherwise.
+ */
+bool Fixed::operator==(const Fixed &rhs) const
 {
-	return (this->getRawBits() == fixedPointObj.getRawBits());
+	return (this->getRawBits() == rhs.getRawBits());
 }
 
-bool Fixed::operator!=(const Fixed &fixedPointObj)
+/**
+ * Compares two Fixed objects for inequality.
+ *
+ * This function returns true if the left-hand side object does not have the same
+ * raw value as the right-hand side object, and false otherwise.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   True if left-hand side object does not have the same raw value as right-hand
+ *   side object, and false otherwise.
+ */
+bool Fixed::operator!=(const Fixed &rhs) const
 {
-	return (this->getRawBits() != fixedPointObj.getRawBits());
+	return (this->getRawBits() != rhs.getRawBits());
 }
 
+/**
+ * Adds two Fixed objects together.
+ *
+ * This function returns a new Fixed object whose raw value is the sum of the
+ * raw values of the left-hand side and right-hand side objects.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   A new Fixed object whose raw value is the sum of the raw values of the
+ *   left-hand side and right-hand side objects.
+ */
+Fixed Fixed::operator+(const Fixed &rhs) const
+{
+	return (Fixed(this->toFloat() + rhs.toFloat()));
+}
+
+/**
+ * Subtracts the right-hand side Fixed object from the left-hand side Fixed
+ * object.
+ *
+ * This function returns a new Fixed object whose raw value is the difference
+ * of the raw values of the left-hand side and right-hand side objects.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   A new Fixed object whose raw value is the difference of the raw values of
+ *   the left-hand side and right-hand side objects.
+ */
+Fixed Fixed::operator-(const Fixed &rhs) const
+{
+	return (Fixed(this->toFloat() - rhs.toFloat()));
+}
+
+/**
+ * Multiplies the left-hand side Fixed object by the right-hand side Fixed
+ * object.
+ *
+ * This function returns a new Fixed object whose raw value is the product of the
+ * raw values of the left-hand side and right-hand side objects.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   A new Fixed object whose raw value is the product of the raw values of the
+ *   left-hand side and right-hand side objects.
+ */
+Fixed Fixed::operator*(const Fixed &rhs) const
+{
+	return (Fixed(this->toFloat() * rhs.toFloat()));
+}
+
+/**
+ * Divides the left-hand side Fixed object by the right-hand side Fixed object.
+ *
+ * This function returns a new Fixed object whose raw value is the division of
+ * the raw values of the left-hand side and right-hand side objects.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   A new Fixed object whose raw value is the division of the raw values of the
+ *   left-hand side and right-hand side objects.
+ */
+Fixed Fixed::operator/(const Fixed &rhs) const
+{
+	return (Fixed(this->toFloat() / rhs.toFloat()));
+}
+
+/**
+ * Increments the Fixed object by one.
+ *
+ * This function increments the internal integer value of the Fixed object by
+ * one and returns the object itself.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   The Fixed object itself after incrementing.
+ */
+Fixed Fixed::operator++(void)
+{
+	++this->_value;
+	return (*this);
+}
+
+/**
+ * Decrements the Fixed object by one.
+ *
+ * This function decrements the internal integer value of the Fixed object by
+ * one and returns the object itself.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   The Fixed object itself after decrementing.
+ */
+Fixed Fixed::operator--(void)
+{
+	--this->_value;
+	return (*this);
+}
+
+/**
+ * Post-increments the Fixed object by one.
+ *
+ * This function increments the internal integer value of the Fixed object by
+ * one, but returns a copy of the object itself before the incrementation took
+ * place.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   A copy of the Fixed object before the incrementation took place.
+ */
+Fixed Fixed::operator++(int)
+{
+	Fixed temp = *this;
+	this->_value++;
+	return (temp);
+}
+
+/**
+ * Post-decrements the Fixed object by one.
+ *
+ * This function decrements the internal integer value of the Fixed object by
+ * one, but returns a copy of the object itself before the decrementation took
+ * place.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   A copy of the Fixed object before the decrementation took place.
+ */
+Fixed Fixed::operator--(int)
+{
+	Fixed temp = *this;
+	this->_value--;
+	return (temp);
+}
 
 /**
  * Retrieves the raw value of the fixed-point number.
@@ -186,7 +413,6 @@ void Fixed::setRawBits(int const raw)
  * Returns:
  *   The floating-point representation of the fixed-point number.
  */
-
 float Fixed::toFloat(void) const
 {
 	return ((float)this->_value / (1 << _bits));
@@ -211,8 +437,96 @@ int Fixed::toInt(void) const
 	return (this->_value >> _bits);
 }
 
+/**
+ * Overloads the output stream operator for the Fixed class.
+ *
+ * This function allows the Fixed object to be printed to an output stream.
+ * The function converts the fixed-point number to a floating-point
+ * representation and prints it to the output stream.
+ *
+ * Output:
+ *   None
+ *
+ * Parameters:
+ *   out - The output stream to print to.
+ *   fixed - The Fixed object to print.
+ *
+ * Returns:
+ *   The output stream.
+ */
 std::ostream &operator<<(std::ostream &out, const Fixed &fixed)
 {
 	out << fixed.toFloat();
 	return (out);
+}
+
+/**
+ * Retrieves the minimum of two Fixed objects.
+ *
+ * This function returns a reference to the Fixed object with the
+ * lesser raw value. If both objects have the same raw value, it
+ * returns a reference to the first object.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   A reference to the Fixed object with the lesser raw value.
+ */
+const Fixed &Fixed::min(Fixed &a, Fixed &b)
+{
+	return (a < b ? a : b);
+}
+/**
+ * Retrieves the minimum of two Fixed objects.
+ *
+ * This function returns a reference to the Fixed object with the
+ * lesser raw value. If both objects have the same raw value, it
+ * returns a reference to the first object.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   A reference to the Fixed object with the lesser raw value.
+ */
+const Fixed &Fixed::min(const Fixed &a, const Fixed &b)
+{
+	return (a < b ? a : b);
+}
+
+/**
+ * Retrieves the maximum of two Fixed objects.
+ *
+ * This function returns a reference to the Fixed object with the
+ * greater raw value. If both objects have the same raw value, it
+ * returns a reference to the first object.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   A reference to the Fixed object with the greater raw value.
+ */
+const Fixed &Fixed::max(Fixed &a, Fixed &b)
+{
+	return (a > b ? a : b);
+}
+
+/**
+ * Retrieves the maximum of two Fixed objects.
+ *
+ * This function returns a reference to the Fixed object with the
+ * greater raw value. If both objects have the same raw value, it
+ * returns a reference to the first object.
+ *
+ * Output:
+ *   None
+ *
+ * Returns:
+ *   A reference to the Fixed object with the greater raw value.
+ */
+const Fixed &Fixed::max(const Fixed &a, const Fixed &b)
+{
+	return (a > b ? a : b);
 }
