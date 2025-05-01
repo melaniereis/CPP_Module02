@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:16:55 by meferraz          #+#    #+#             */
-/*   Updated: 2025/04/30 15:59:27 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/05/01 09:07:27 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ const int Fixed::_bits = 8;
  */
 Fixed::Fixed(void) : _value(0)
 {
-	std::cout << GRN "✅ Default constructor called" RESET << std::endl;
+	// std::cout << GRN "✅ Default constructor called" RESET << std::endl;
 }
 
 /**
@@ -40,7 +40,7 @@ Fixed::Fixed(void) : _value(0)
  */
 Fixed::Fixed(const int value) : _value(value << _bits)
 {
-	std::cout << GRN "✅ Int constructor called" RESET << std::endl;
+	// std::cout << GRN "✅ Int constructor called" RESET << std::endl;
 }
 
 /**
@@ -60,7 +60,7 @@ Fixed::Fixed(const int value) : _value(value << _bits)
 
 Fixed::Fixed(const float value) : _value(roundf(value * (1 << _bits)))
 {
-	std::cout << GRN "✅ Float constructor called" RESET << std::endl;
+	// std::cout << GRN "✅ Float constructor called" RESET << std::endl;
 }
 
 /**
@@ -74,7 +74,7 @@ Fixed::Fixed(const float value) : _value(roundf(value * (1 << _bits)))
  */
 Fixed::~Fixed(void)
 {
-	std::cout << RED "❌ Default destructor called" RESET << std::endl;
+	// std::cout << RED "❌ Default destructor called" RESET << std::endl;
 }
 
 /**
@@ -87,7 +87,7 @@ Fixed::~Fixed(void)
  */
 Fixed::Fixed(const Fixed &copy)
 {
-	std::cout << YEL "📋 Copy constructor called" RESET << std::endl;
+	// std::cout << YEL "📋 Copy constructor called" RESET << std::endl;
 	*this = copy;
 }
 
@@ -101,7 +101,7 @@ Fixed::Fixed(const Fixed &copy)
  */
 Fixed &Fixed::operator=(const Fixed &copy)
 {
-	std::cout << BLU "📝 Copy assignment operator called" RESET << std::endl;
+	// std::cout << BLU "📝 Copy assignment operator called" RESET << std::endl;
 	if (this != &copy)
 		this->_value = copy.getRawBits();
 	return (*this);
@@ -380,7 +380,7 @@ Fixed Fixed::operator--(int)
  */
 int Fixed::getRawBits(void) const
 {
-	std::cout << CYN "🔍 getRawBits member function called" RESET << std::endl;
+	// std::cout << CYN "🔍 getRawBits member function called" RESET << std::endl;
 	return (this->_value);
 }
 
@@ -399,7 +399,7 @@ int Fixed::getRawBits(void) const
  */
 void Fixed::setRawBits(int const raw)
 {
-	std::cout << MAG "🛠️ setRawBits member function called" RESET << std::endl;
+	// std::cout << MAG "🛠️ setRawBits member function called" RESET << std::endl;
 	this->_value = raw;
 }
 

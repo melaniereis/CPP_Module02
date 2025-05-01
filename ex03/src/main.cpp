@@ -6,88 +6,129 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:52:32 by meferraz          #+#    #+#             */
-/*   Updated: 2025/04/30 22:06:38 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/05/01 09:57:34 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Fixed.hpp"
-#include "Point.hpp"
-#include <vector>
+#include "../inc/Point.hpp"
 
 bool bsp(Point const a, Point const b, Point const c, Point const point);
 
+struct TestCase
+{
+	Point point;
+	const char *description;
+};
+
 static void printHeader(const std::string &title)
 {
-    std::cout << "\n========== " << title << " ==========\n";
+	std::cout << RED << "\n========== " << title << " ==========" << RESET << "\n";
+	std::cout << std::endl;
 }
 
-static void printResult(bool inside, const Point &p)
+// Function to test a point inside/outside triangle
+void testPointInsideTriangle(Point &P, Point &A, Point &B, Point &C)
 {
-    std::cout << "Point (" << p.getX() << ", " << p.getY() << ") --> ";
-    std::cout << (inside ? BGRN "INSIDE" RESET : BRED "OUTSIDE" RESET) << "\n";
+	std::cout << "(" << BGRN << P.getX() << "," << P.getY() << RESET << ")" << std::endl;
+	if (bsp(A, B, C, P))
+		std::cout << BGRN << "Point INSIDE Triangle ABC" << RESET << std::endl;
+	else
+		std::cout << BRED << "Point OUTSIDE Triangle ABC" << RESET << std::endl;
 }
 
 static void printTriangleAndPoint(const Point &A, const Point &B, const Point &C, const Point &p)
 {
-    const int width = 10;
-    const int height = 10;
-    char grid[height][width];
+	const int width = 10;
+	const int height = 10;
+	char grid[height][width];
 
-    // Initialize grid
-    for (int i = 0; i < height; ++i)
-        for (int j = 0; j < width; ++j)
-            grid[i][j] = ' ';
+	for (int i = 0; i < height; ++i)
+		for (int j = 0; j < width; ++j)
+			grid[i][j] = ' ';
 
-    // Plot points using toInt()
-    grid[height - 1 - A.getY().toInt()][A.getX().toInt()] = 'A';
-    grid[height - 1 - B.getY().toInt()][B.getX().toInt()] = 'B';
-    grid[height - 1 - C.getY().toInt()][C.getX().toInt()] = 'C';
-    grid[height - 1 - p.getY().toInt()][p.getX().toInt()] = 'P';
+	grid[height - 1 - A.getY().toInt()][A.getX().toInt()] = 'A';
+	grid[height - 1 - B.getY().toInt()][B.getX().toInt()] = 'B';
+	grid[height - 1 - C.getY().toInt()][C.getX().toInt()] = 'C';
+	grid[height - 1 - p.getY().toInt()][p.getX().toInt()] = 'P';
 
-    std::cout << "\nTriangle and Point Visualization:\n";
-    for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width; ++j)
-            std::cout << grid[i][j];
-        std::cout << "\n";
-    }
-}
-
-typedef std::pair<Point, std::string> TestCase;
-
-static TestCase makeTestCase(float x, float y, const std::string& desc)
-{
-    return std::make_pair(Point(x, y), desc);
+	std::cout << "\n"
+			  << BBLU << "Triangle and Point Visualization:" << RESET << "\n";
+	for (int i = 0; i < height; ++i)
+	{
+		for (int j = 0; j < width; ++j)
+			std::cout << grid[i][j];
+		std::cout << "\n";
+	}
 }
 
 int main()
 {
-    Point A(1, 1), B(5, 1), C(3, 4);
+	printHeader("BSP TESTING PROGRAM");
 
-    std::vector<TestCase> tests;
-    tests.push_back(makeTestCase(3, 2, "Center"));
-    tests.push_back(makeTestCase(3, 3, "Upper"));
-    tests.push_back(makeTestCase(1, 1, "Vertex A"));
-    tests.push_back(makeTestCase(5, 1, "Vertex B"));
-    tests.push_back(makeTestCase(3, 4, "Vertex C"));
-    tests.push_back(makeTestCase(2, 1, "Edge AB"));
-    tests.push_back(makeTestCase(4, 2, "Inside near edge BC"));
-    tests.push_back(makeTestCase(0, 0, "Far outside"));
-    tests.push_back(makeTestCase(3, 1.5f, "On line CA"));
+	// Triangle vertices
+	Point A(0.0f, 0.0f);
+	Point B(0.0f, 8.0f);
+	Point C(8.0f, 0.0f);
 
-    printHeader("BSP Triangle Point Test");
-    std::cout << "Triangle vertices: A(" << A.getX() << "," << A.getY() << "), "
-              << "B(" << B.getX() << "," << B.getY() << "), "
-              << "C(" << C.getX() << "," << C.getY() << ")\n";
+	std::cout << WHTB << "Triangle A(" << A.getX() << ", " << A.getY() << ")";
+	std::cout << ", B(" << B.getX() << ", " << B.getY() << ")";
+	std::cout << ", C(" << C.getX() << ", " << C.getY() << ")" << RESET << "\n";
 
-    for (std::vector<TestCase>::iterator it = tests.begin(); it != tests.end(); ++it)
-    {
-        Point p = it->first;
-        bool inside = bsp(A, B, C, p);
-        std::cout << it->second << ": ";
-        printResult(inside, p);
-        printTriangleAndPoint(A, B, C, p);
-    }
+	// Inside the triangle
+	Point Pd(4.0f, 3.0f);
+	// On the edges of the triangle
+	Point Pe(4.0f, 4.0f);
+	Point Pf(4.0183f, 3.9f);	 // Close to the border but inside
+	Point Pg(4.00389f, 4.4035f); // Close to the border but outside
+	// Outside the triangle
+	Point Ph(-4.00389f, -4.4035f);
 
-    std::cout << "\n🎉 All BSP tests completed! 🎉\n";
-    return 0;
+	// Vertices
+	Point Pi(0.0f, 0.0f);
+	Point Pj(0.0f, 8.0f);
+	Point Pk(8.0f, 0.0f);
+
+	// Testing each point
+	std::cout << "\n"
+			  << BRED << "=== Testing Inside Points ===" << RESET << "\n";
+	std::cout << "\nTesting Point Pd: ";
+	testPointInsideTriangle(Pd, A, B, C);
+	printTriangleAndPoint(A, B, C, Pd);
+
+	std::cout << "\n"
+			  << BRED << "=== Testing Points on the Edges ===" << RESET << "\n";
+	std::cout << "\nTesting Point Pe: ";
+	testPointInsideTriangle(Pe, A, B, C);
+	printTriangleAndPoint(A, B, C, Pe);
+
+	std::cout << "\nTesting Point Pf: ";
+	testPointInsideTriangle(Pf, A, B, C);
+	printTriangleAndPoint(A, B, C, Pf);
+
+	std::cout << "\nTesting Point Pg: ";
+	testPointInsideTriangle(Pg, A, B, C);
+	printTriangleAndPoint(A, B, C, Pg);
+
+	std::cout << "\n"
+			  << BRED << "=== Testing Outside Points ===" << RESET << "\n";
+	std::cout << "\nTesting Point Ph: ";
+	testPointInsideTriangle(Ph, A, B, C);
+	printTriangleAndPoint(A, B, C, Ph);
+
+	std::cout << "\n"
+			  << BRED << "=== Testing Points on Vertices ===" << RESET << "\n";
+	std::cout << "\nTesting Point Pi: ";
+	testPointInsideTriangle(Pi, A, B, C);
+	printTriangleAndPoint(A, B, C, Pi);
+
+	std::cout << "\nTesting Point Pj: ";
+	testPointInsideTriangle(Pj, A, B, C);
+	printTriangleAndPoint(A, B, C, Pj);
+
+	std::cout << "\nTesting Point Pk: ";
+	testPointInsideTriangle(Pk, A, B, C);
+	printTriangleAndPoint(A, B, C, Pk);
+
+	std::cout << "\n🎉 All BSP tests completed! 🎉\n";
+	return 0;
 }

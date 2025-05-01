@@ -6,7 +6,7 @@
 /*   By: meferraz <meferraz@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:03:30 by meferraz          #+#    #+#             */
-/*   Updated: 2025/04/30 22:07:22 by meferraz         ###   ########.fr       */
+/*   Updated: 2025/05/01 08:57:59 by meferraz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  */
 Point::Point(void) : _x(0), _y(0)
 {
-	std::cout << GRN "✅ Default constructor called" RESET << std::endl;
+	// std::cout << GRN "✅ Default constructor called" RESET << std::endl;
 }
 
 /**
@@ -33,7 +33,7 @@ Point::Point(void) : _x(0), _y(0)
  */
 Point::Point(const float x, const float y) : _x(x), _y(y)
 {
-	std::cout << GRN "✅ Float constructor called" RESET << std::endl;
+	// std::cout << GRN "✅ Float constructor called" RESET << std::endl;
 }
 
 /**
@@ -46,7 +46,7 @@ Point::Point(const float x, const float y) : _x(x), _y(y)
  */
 Point::Point(const Point &copy) : _x(copy.getX()), _y(copy.getY())
 {
-	std::cout << GRN "📋 Copy constructor called" RESET << std::endl;
+	// std::cout << GRN "📋 Copy constructor called" RESET << std::endl;
 }
 
 /**
@@ -64,9 +64,9 @@ Point &Point::operator=(const Point &copy)
 {
 	if (this != &copy)
 	{
-		this->_x = copy.getX();
-		this->_y = copy.getY();
-		std::cout << BLU "📝 Copy assignment operator called" RESET << std::endl;
+		const_cast<Fixed &>(_x) = copy.getX();
+		const_cast<Fixed &>(_y) = copy.getY();
+		// std::cout << BLU "📝 Copy assignment operator called" RESET << std::endl;
 	}
 	return (*this);
 }
@@ -79,7 +79,7 @@ Point &Point::operator=(const Point &copy)
  */
 Point::~Point(void)
 {
-	std::cout << RED "🗑️ Defautlt destructor called" RESET << std::endl;
+	// std::cout << RED "🗑️ Defautlt destructor called" RESET << std::endl;
 }
 
 /**
