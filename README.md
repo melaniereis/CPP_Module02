@@ -537,6 +537,6 @@ After mastering Module 02, you'll be ready to tackle:
 
 *"Precision is not just accuracy, it's the foundation of reliable software."*
 
-**Module 02 Complete** ✨ | **Previous**: [← Module 01](../CPP_Module01/README.md) | **Next**: [Module 03 →](../CPP_Module03/README.md)
+**Module 02 Complete** ✨ | **Previous**: [← Module 01](https://github.com/melaniereis/CPP_Module01/) | **Next**: [Module 03 →](https://github.com/melaniereis/CPP_Module03/)
 
 </div>
